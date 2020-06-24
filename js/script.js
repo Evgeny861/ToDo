@@ -6,17 +6,11 @@ const todoControl = document.querySelector('.todo-control'),
         todoList = document.querySelector('.todo-list'),
         todoCompleted = document.querySelector('.todo-completed');
         
-
-            console.log(todoControl);
-            console.log(headerInput);
-            console.log(todoList);
-            console.log(todoCompleted);
-            
-            
-            
         
-        const todoData = [];
-
+        let todoData = [];
+        let localStorageData = function(){
+            localStorage.Value = JSON.stringify(todoData);
+        };
         const render = function() {
             todoList.textContent = '';
             todoCompleted.textContent = '';
@@ -41,17 +35,9 @@ const todoControl = document.querySelector('.todo-control'),
                 btnTodoCompleted.addEventListener('click', function(){
                     item.completed = !item.completed;
                     render();
+                    localStorageData();
                 });
-                
-                console.log(item);
-                console.log(todoList);
-                console.log(li);
-                console.log(todoData.indexOf(''));
-                console.dir(todoData);
-                
-                
-                
-                
+                                
                 const btnTodoRemove = li.querySelector('.todo-remove');
                 btnTodoRemove.addEventListener('click', function(){
                     
@@ -60,8 +46,19 @@ const todoControl = document.querySelector('.todo-control'),
                 });
                 
                 
+                
+                
             });
         };
+        
+        
+        
+
+        document.addEventListener("DOMContentLoaded", function (event){
+            
+            todoData = JSON.parse(localStorage.Value);
+            render();
+        });
 
         todoControl.addEventListener('submit', function(event){
             event.preventDefault();
@@ -78,16 +75,16 @@ const todoControl = document.querySelector('.todo-control'),
                 todoData.push(newTodo);
                 headerInput.value = '';
             }
-            
+
+            localStorageData();
             
             render();
         });
 
-
         render();
 
-        // const btnStorage = document.querySelector('#add');
-        // btnStorage.addEventListener('click', function(){
-        //     localStorage.myText = headerInput.value;
-        // });
+
+        
+                
+        
         
